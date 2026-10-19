@@ -1,0 +1,7 @@
+Werkzeug
+Flask
+gunicorn
+numpy
+urllib3
+requests
+face_recognition

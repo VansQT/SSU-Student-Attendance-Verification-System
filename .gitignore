@@ -1,0 +1,15 @@
+node_modules/
+data/
+production-smoke-data/
+build/
+dist/
+server.mjs
+coverage/
+.DS_Store
+*.log
+**/.venv/
+**/__pycache__/
+attendance_system_face_recognition_api-master/*.jpg
+attendance_system_face_recognition_api-master/*.ipynb
+.env*
+!.env.example

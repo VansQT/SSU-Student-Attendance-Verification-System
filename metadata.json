@@ -1,0 +1,6 @@
+{
+  "name": "SSU Student Attendance Verification System",
+  "description": "Samar State University Web-Based Attendance Management System with Printed QR Code, Face Verification, and Location Validation.",
+  "requestFramePermissions": ["camera", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

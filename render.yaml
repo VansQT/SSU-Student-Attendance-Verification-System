@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: ssu-attendance-verification
+    runtime: docker
+    region: singapore
+    # Face recognition and the persistent JSON store require a paid, single
+    # instance service. 512 MB is not suitable for the Node + dlib runtime.
+    plan: 1c-2g
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeployTrigger: 'off'
+    disk:
+      name: ssu-attendance-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATA_DIR
+        value: /var/data
+      - key: PYTHON_EXECUTABLE
+        value: /usr/bin/python3
+      - key: INITIAL_ADMIN_USERNAME
+        sync: false
+      - key: INITIAL_ADMIN_EMAIL
+        sync: false
+      - key: INITIAL_ADMIN_PASSWORD
+        sync: false

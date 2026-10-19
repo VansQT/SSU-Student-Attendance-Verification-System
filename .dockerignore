@@ -1,0 +1,41 @@
+.git
+.env
+.env.*
+!.env.example
+node_modules
+dist
+server.mjs
+data
+coverage
+*.log
+**/__pycache__
+**/.venv
+attendance_system_face_recognition_api-master/*.ipynb
+attendance_system_face_recognition_api-master/*.jpg
+*** Add File: C:\Users\eyanb\Downloads\ssu-student-attendance-verification-system\render.yaml
+services:
+  - type: web
+    name: ssu-attendance-verification
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: false
+    disk:
+      name: ssu-attendance-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATA_DIR
+        value: /var/data
+      - key: PYTHON_EXECUTABLE
+        value: /usr/bin/python3
+      - key: APP_URL
+        sync: false
+      - key: INITIAL_ADMIN_USERNAME
+        sync: false
+      - key: INITIAL_ADMIN_EMAIL
+        sync: false
+      - key: INITIAL_ADMIN_PASSWORD
+        sync: false
