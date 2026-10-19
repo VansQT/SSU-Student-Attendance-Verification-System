@@ -1,0 +1,6 @@
+# APP_DOMAIN must resolve to the VM's public IP address. Caddy then serves
+# HTTPS automatically, which is required for browser camera and location APIs.
+{$APP_DOMAIN} {
+  encode zstd gzip
+  reverse_proxy attendance:3000
+}

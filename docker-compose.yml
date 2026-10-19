@@ -1,0 +1,46 @@
+services:
+  attendance:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    init: true
+    environment:
+      NODE_ENV: production
+      DATA_DIR: /var/data
+      PYTHON_EXECUTABLE: /usr/bin/python3
+      INITIAL_ADMIN_USERNAME: ${INITIAL_ADMIN_USERNAME:?Set INITIAL_ADMIN_USERNAME in .env.production}
+      INITIAL_ADMIN_EMAIL: ${INITIAL_ADMIN_EMAIL:?Set INITIAL_ADMIN_EMAIL in .env.production}
+      INITIAL_ADMIN_PASSWORD: ${INITIAL_ADMIN_PASSWORD:?Set INITIAL_ADMIN_PASSWORD in .env.production}
+    volumes:
+      - attendance_data:/var/data
+    networks:
+      - private
+
+  # Caddy obtains and renews the TLS certificate. The attendance container is
+  # deliberately not exposed directly to the Internet.
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    depends_on:
+      - attendance
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:?Set APP_DOMAIN in .env.production}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - private
+
+volumes:
+  attendance_data:
+  caddy_data:
+  caddy_config:
+
+networks:
+  private:
+    driver: bridge

@@ -13,3 +13,4 @@ attendance_system_face_recognition_api-master/*.jpg
 attendance_system_face_recognition_api-master/*.ipynb
 .env*
 !.env.example
+!.env.production.example
